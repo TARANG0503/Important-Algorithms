@@ -18,7 +18,7 @@ ll exponential(ll num,ll pow)
 }
 
 int main() {
-  int num,pow;
+  ll num,pow;
   cout<<"Enter the number: ";
   cin>>num;
   cout<<"Enter the power : ";
