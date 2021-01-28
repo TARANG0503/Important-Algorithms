@@ -1,7 +1,7 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-bool subsetSum(int *arr,int n,int sum)
+int subsetSum(int *arr,int n,int sum)
 {
     bool dp[n+1][sum+1];
     for(int i=0;i<=n;i++)
@@ -10,8 +10,19 @@ bool subsetSum(int *arr,int n,int sum)
         dp[0][i]=false;
     for(int i=1;i<=n;i++)
         for(int j=1;j<=sum;j++)
-            dp[i][j]=dp[i-1][j]||dp[i-1][j-arr[i]];
-    return dp[n+1][sum+1];
+        {
+            bool temp=false;
+            if(arr[i-1]<=j)
+                temp=dp[i-1][j-arr[i-1]];
+            dp[i][j]=(dp[i-1][j]||temp);
+        }
+    for(int i=0;i<=n;i++)
+    {
+        for(int j=0;j<=sum;j++)
+            cout<<dp[i][j]<<" ";
+        cout<<endl;
+    }
+    return dp[n][sum];
 }
 int main() {
     int n,sum;
@@ -23,10 +34,10 @@ int main() {
     cin>>arr[i];
     cout<<"\nEnter the sum: ";
     cin>>sum;
-    cout<<endl;
+    cout<<"\nDP Table:\n";
     if(subsetSum(arr,n,sum))
-    cout<<"Sum possible";
+        cout<<"\nSum possible";
     else
-    cout<<"Sum NOT possible";
+        cout<<"\nSum NOT possible";
     return 0;
 }
